@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSQ — Software Sob Medida e Automação de Processos</title>
+    <meta name="description" content="Desenvolvemos softwares personalizados e automações inteligentes para transformar processos logísticos, operacionais e administrativos. Tecnologia robusta, sem limitações.">
+    <meta property="og:title" content="COSQ — Software Sob Medida e Automação de Processos">
+    <meta property="og:description" content="Sua empresa, seus processos. Software sob medida. Transformamos a complexidade do seu negócio em sistemas simples, robustos e inteligentes.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary:   #0f172a;
+            --secondary: #00c3ff;
+            --accent:    #10b981;
+            --light:     #f8fafc;
+            --dark:      #1e293b;
+            --muted:     #64748b;
+            --bg:        #f1f5f9;
+            --border:    #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            color: var(--dark); 
+            background: #fff; 
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+       /* ── NAVBAR ── */
+        header {
+            background: var(--primary);
+            padding: 0 5%;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+        }
+        
+        .logo-img { height: 40px; width: auto; object-fit: contain; }
+        
+        nav { flex: 1; display: flex; justify-content: center; margin-left: 2rem; }
+        nav ul { list-style: none; display: flex; gap: 1.8rem; align-items: center; }
+        nav ul a { color: #94a3b8; text-decoration: none; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em; transition: color 0.25s; }
+        nav ul a:hover { color: #fff; }
+        
+        .nav-separator { width: 1px; height: 20px; background: rgba(255, 255, 255, 0.15); margin: 0 0.2rem; }
+        .nav-special { color: var(--secondary) !important; font-weight: 700; }
+        
+        .btn-header { display: inline-block; padding: 0.65rem 1.5rem; border-radius: 6px; font-weight: 700; text-decoration: none; background: var(--secondary); color: var(--primary); font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; font-family: inherit; }
+        .btn-header:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,195,255,0.2); }
+        
+        .menu-toggle { display: none; font-size: 1.8rem; color: #fff; cursor: pointer; line-height: 1; background: none; border: none; }
+
+        /* ── NOVO HERO SECTION ── */
+        .hero-new {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-new::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,195,255,0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero-new::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            color: #f8fafc;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-transform: none; /* Remove as maiúsculas para um tom mais elegante */
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Adiciona um ponto luminoso elegante antes do texto (sem precisar de mexer no HTML) */
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--secondary), 0 0 4px var(--secondary);
+            animation: pulse-dot 2.5s infinite ease-in-out;
+        }
+
+        /* Animação suave para o ponto luminoso */
+        @keyframes pulse-dot {
+            0% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem); /* Igual ao h1 do clav.html */
+            font-weight: 800;
+            line-height: 1.15;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--secondary), #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.05rem; /* Igual ao parágrafo da hero do clav.html */
+            line-height: 1.8;
+            color: #94a3b8;
+            margin-bottom: 2.5rem;
+            max-width: 580px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta-group .btn {
+            padding: 1rem 2rem;
+            font-size: 1.05rem;
+            border-radius: 12px;
+        }
+
+        /* ── ESTILOS GLOBAIS DE BOTÕES (Faltantes) ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-wa {
+            background: var(--accent); /* Cor verde do WhatsApp/Sucesso */
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-wa:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: #0d9488;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats-inline {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-inline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-inline-number {
+            font-family: 'Inter', sans-serif; /* <-- Alterado de 'Syne' para 'Inter' */
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-inline-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Transforma o container em uma coluna com espaçamento */
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 580px; /* Aumentei um pouco para comportar os cards com respiro */
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(179, 176, 176, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: float 6s ease-in-out infinite;
+
+            /* MÁSCARA DE OPACIDADE: Mantém o topo-esquerdo sólido e esmaece o canto inferior-direito */
+            -webkit-mask-image: radial-gradient(circle at 35% 35%, black 7%, rgba(0, 0, 0, 0.15) 100%);
+            mask-image: radial-gradient(circle at 35% 35%, black 7%, rgba(0,0,0,0.15) 100%);
+        }
+
+        .floating-card:nth-child(1) {
+            top: 0;
+            left: 0;
+            width: 300px;
+            z-index: 1;
+            animation-delay: 0s;
+        }
+
+        .floating-card:nth-child(2) {
+            top: 155px; /* Um pouco mais para baixo para não pegar direto no texto */
+            right: 0;
+            width: 300px;
+            z-index: 2;
+            animation-delay: 1s;
+        }
+
+        .floating-card:nth-child(3) {
+            top: 310px; /* Um pouco mais para baixo para liberar o texto do Card 2 */
+            left: 40px;
+            width: 300px;
+            z-index: 3;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary), #10b981);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* ── BENTO GRID SOLUTIONS ── */
+        .solutions-bento {
+            padding: 8rem 5%;
+            background: #fff;
+        }
+
+        .section-header {
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            text-align: center;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.6rem); /* Igual ao section-title do clav.html */
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.02rem; /* Igual ao section-sub do clav.html */
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bento-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,195,255,0.05) 0%, rgba(16,185,129,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .bento-item:hover::before {
+            opacity: 1;
+        }
+
+        .bento-large {
+            grid-column: span 8;
+        }
+
+        .bento-small {
+            grid-column: span 4;
+        }
+
+        .bento-medium {
+            grid-column: span 6;
+        }
+
+        .bento-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--secondary), #10b981);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,195,255,0.3);
+        }
+
+        .bento-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .bento-description {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .bento-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .bento-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            color: #475569;
+        }
+
+        .bento-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ── PROCESS TIMELINE ── */
+        .process-section {
+            padding: 8rem 5%;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0,195,255,0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .process-section .section-title {
+            color: #fff;
+        }
+
+        .process-section .section-description {
+            color: #94a3b8;
+        }
+
+        .process-timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--secondary) 0%, #10b981 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem; /* <-- Distância vertical reduzida (antes era 4rem) */
+            align-items: center; /* <-- Garante o alinhamento perfeito do número com o quadro */
+            position: relative;
+        }
+
+        .timeline-content {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        /* Os seletores de inversão (nth-child) foram removidos propositalmente 
+           aqui para evitar que a grade quebre o alinhamento. */
+
+        .timeline-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,195,255,0.4);
+            grid-column: 2; /* Fixa o número sempre no meio */
+            position: relative;
+            z-index: 3;
+        }
+
+        .timeline-step-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-step-description {
+            font-size: 1rem;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        /* ── SEGMENTOS (Quem Atendemos) ── */
+        .segments-section {
+            padding: 8rem 5%;
+            background: var(--bg); /* Fundo levemente cinza para destacar os cards brancos */
+        }
+
+        .segments-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .segments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .segments-title-area {
+            flex: 1;
+        }
+
+        .segments-desc-area {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .segments-desc-area .section-description {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .segments-desc-area strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── GRID ASSIMÉTRICO ── */
+        .segments-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr); /* Divide em 12 partes para total flexibilidade */
+            gap: 1.5rem;
+        }
+
+        .segment-card {
+            grid-column: span 3; /* Tamanho padrão (pequeno) */
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 24px; /* Bordas mais arredondadas para um look moderno */
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Variações de Largura */
+        .card-w-2 {
+            grid-column: span 6; /* Ocupa metade da largura */
+        }
+
+        .card-w-3 {
+            grid-column: span 6; /* Pode ser ajustado conforme a necessidade */
+        }
+
+        /* Efeito de Vidro Suave no Hover */
+        .segment-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        .segment-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0, 195, 255, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsividade (Mobile) */
+        @media (max-width: 1024px) {
+            .segment-card, .card-w-2, .card-w-3 {
+                grid-column: span 6; /* 2 colunas no tablet */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .segment-card, .card-w-2, .card-w-3 {
+                grid-column: span 12; /* 1 coluna no telemóvel */
+                padding: 2rem;
+            }
+        }
+
+        .segment-card:hover .segment-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .segment-card h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+        }
+
+        .segment-card p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── RODAPÉ DA SEÇÃO (Caixa de Destaque) ── */
+        .segments-footer {
+            margin-top: 5rem;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(0, 195, 255, 0.03) 100%);
+            border: 1px solid rgba(0, 195, 255, 0.15);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Linha de gradiente no topo da caixa para dar um charme tecnológico */
+        .segments-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .segments-footer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 195, 255, 0.3);
+        }
+
+        .segments-footer p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            color: var(--primary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Estilizando o link "clique aqui" como uma pílula interativa */
+        .segments-footer a {
+            color: var(--secondary);
+            font-weight: 800;
+            text-decoration: none;
+            position: relative;
+            padding: 0.3rem 0.8rem;
+            margin: 0 0.2rem;
+            border-radius: 8px;
+            background: rgba(0, 195, 255, 0.08);
+            transition: all 0.3s ease;
+            display: inline-block; /* Evita que o link quebre de forma estranha */
+        }
+
+        .segments-footer a:hover {
+            background: var(--secondary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 195, 255, 0.3);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .segments-footer {
+                padding: 2rem 1.5rem;
+            }
+            .segments-footer p {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* ── PQ A COSQ ── */
+        .why-cosq {
+            padding: 8rem 5%;
+            background: #fff;
+            position: relative;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr; /* Proporção levemente ajustada para equilibrar */
+            gap: 4rem; /* Aproximou um pouco as duas colunas */
+            max-width: 1300px; 
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .why-content .section-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .why-content .section-description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        /* Caixa de Destaque da Imersão */
+        .immersion-box {
+            margin-top: 2.5rem;
+            padding: 2rem 2.5rem;
+            background: var(--primary);
+            border-radius: 20px; /* Arredondamento mais suave */
+            color: #fff;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+        }
+
+        .immersion-box h4 {
+            color: var(--secondary);
+            font-size: 1.15rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .immersion-box p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Cards da Direita */
+        .why-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Reduzido de 1.5rem para compactar a lista de 5 itens */
+        }
+
+        .why-card-mini {
+            display: flex;
+            align-items: center; /* Centraliza o ícone com o texto verticalmente */
+            gap: 1.2rem;
+            padding: 1.2rem 1.5rem; /* Reduzido o padding vertical para afinar os cards */
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .why-card-mini:hover {
+            transform: translateX(8px);
+            border-color: var(--secondary);
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .mini-icon {
+            width: 46px;
+            height: 46px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem; /* Emoji levemente maior */
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .why-card-mini-text {
+            flex: 1;
+        }
+
+        .why-card-mini h5 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.2rem; /* Título mais próximo da descrição */
+            font-weight: 700;
+        }
+
+        .why-card-mini p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.4;
+            margin: 0; /* Remove margens extras que criavam espaços vazios */
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .why-card-mini:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-final {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,195,255,0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem); /* Igual ao h2 do CTA do clav.html */
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-description {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 14px;
+        }
+
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--primary);
+            padding: 4rem 5% 2rem;
+            color: #94a3b8;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-brand img {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-tagline {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .footer-col h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-col a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 3rem 0 2rem;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .hero-new {
+                grid-template-columns: 1fr;
+                padding-top: 6rem;
+            }
+
+            .bento-large,
+            .bento-medium,
+            .bento-small {
+                grid-column: span 12;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline-content {
+                grid-column: 1 !important;
+            }
+
+            .timeline-number {
+                grid-column: 1;
+                justify-self: start;
+            }
+
+            .timeline-line {
+                left: 30px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            }
+
+            nav ul.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-stats-inline {
+                gap: 2rem;
+            }
+
+            .hero-card-stack {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .floating-card {
+                width: 100% !important;
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html">
+        <img src="logo.png.png" alt="Logo COSQ" class="logo-img">
+    </a>
+    
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+    
+    <nav>
+        <ul id="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#solucoes">Soluções</a></li>
+            <li><a href="#processo">Processo</a></li>
+            <li><a href="#segmentos">Clientes</a></li>
+            <li><a href="#porquecosq">Por Que COSQ?</a></li>
+            <li><a href="#contato">Contato</a></li>
+            
+            <li class="nav-separator"></li>
+            <li><a href="clav.html" class="nav-special">Claviculário</a></li>
+        </ul>
+    </nav>
+    
+    <a href="https://wa.me/5511947833759" class="btn-header">Fale com Especialista</a>
+</header>
+<main>
+
+<!-- HERO SECTION -->
+<section class="hero-new" id="inicio">
+    <div class="hero-content">
+        <div class="hero-eyebrow">
+            SOFTWARES, AUTOMAÇÕES E SITES DESENVOLVIDOS SOB MEDIDA
+        </div>
+        <h1 class="hero-title">
+            Transforme Processos<br>
+            em <span class="highlight">Sistemas Inteligentes</span>
+        </h1>
+        <p class="hero-description">
+            Desenvolvemos sites, softwares web e automações personalizadas que se adaptam milimetricamente ao seu negócio ou processo. 
+            Automatize operações, elimine erros manuais, acabe com prejuízos e escale sem limites com tecnologia 
+            robusta, interface intuitiva e resultados que sempre sonhou.
+        </p>
+        <div class="hero-cta-group">
+            <a href="https://wa.me/5511947833759?text=Olá! Gostaria de conversar sobre uma solução customizada." target="_blank" class="btn btn-wa">
+                💬 Falar com Especialista
+            </a>
+            <a href="#solucoes" class="btn btn-ghost">
+                Ver Soluções
+            </a>
+        </div>
+        <div class="hero-stats-inline">
+            <div class="stat-inline">
+                <div class="stat-inline-number">95%</div>
+                <div class="stat-inline-label">Menos Erros</div>
+            </div>
+            <div class="stat-inline">
+                <div class="stat-inline-number">72h</div>
+                <div class="stat-inline-label">Implantação</div>
+            </div>
+            <div class="stat-inline">
+                <div class="stat-inline-number">10x</div>
+                <div class="stat-inline-label">+ Produtividade</div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card-stack">
+            <div class="floating-card">
+                <div class="card-icon">⚙️</div>
+                <div class="card-title">Automação Total</div>
+                <div class="card-text">Processos manuais e complexos executados automaticamente</div>
+            </div>
+            <div class="floating-card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Dashboard Real-Time</div>
+                <div class="card-text">Decisões baseadas em dados ao vivo</div>
+            </div>
+            <div class="floating-card">
+                <div class="card-icon">🔒</div>
+                <div class="card-title">Segurança Máxima</div>
+                <div class="card-text">Controle de acesso e auditoria completa</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOLUTIONS BENTO GRID -->
+<section class="solutions-bento" id="solucoes">
+    <div class="section-header fade-up">
+        <span class="section-eyebrow">O que desenvolvemos</span>
+        <h2 class="section-title">SOLUÇÕES QUE RESOLVEM PROBLEMAS REAIS</h2>
+        <p class="section-description">
+            Cada projeto é desenvolvido do zero para atender todas as necessidades específicas do seu negócio. 
+            Nada de adaptações! Tecnologia feita sob medida.
+        </p>
+    </div>
+
+    <div class="bento-grid">
+        <div class="bento-item bento-large fade-up">
+            <div class="bento-icon">🏗️</div>
+            <h3 class="bento-title">Sistemas Corporativos Customizados</h3>
+            <p class="bento-description">
+                Desenvolva o sistema perfeito para sua operação. ERP, CRM, WMS, TMS.
+                Qualquer solução que sua empresa precise, construída especificamente para 
+                seus processos e integrações.
+            </p>
+            <ul class="bento-features">
+                <li>Interface intuitiva desenhada para sua equipe</li>
+                <li>Integrações nativas com seus sistemas atuais</li>
+                <li>Escalável conforme seu crescimento</li>
+                <li>Cloud-native com alta disponibilidade</li>
+            </ul>
+        </div>
+
+        <div class="bento-item bento-small fade-up">
+            <div class="bento-icon">🤖</div>
+            <h3 class="bento-title">Automação Inteligente</h3>
+            <p class="bento-description">
+                Elimine tarefas repetitivas e com possibilidade alta de erros manuais. Automatizamos workflows, 
+                processamento de dados, integração de sistemas, atendimento via WhatsApp, captura de leads, 
+                envio de mensagens, follow-ups, emissão de relatórios, agendamentos, CRM, 
+                vendas e comunicação entre plataformas.
+
+            </p>
+        </div>
+
+        <div class="bento-item bento-small fade-up">
+            <div class="bento-icon">📈</div>
+            <h3 class="bento-title">Analytics & BI</h3>
+            <p class="bento-description">
+                Transforme dados em insights acionáveis com dashboards em tempo real e 
+                relatórios inteligentes.
+            </p>
+        </div>
+
+        <div class="bento-item bento-medium fade-up">
+            <div class="bento-icon">🔗</div>
+            <h3 class="bento-title">Integrações Robustas</h3>
+            <p class="bento-description">
+                Conectamos seus sistemas existentes, APIs REST, webhooks, bancos de dados 
+                legados, ERPs, plataformas de e-commerce, CRMs e qualquer ferramenta que 
+                sua empresa use.
+            </p>
+            <ul class="bento-features">
+                <li>Sincronização em tempo real</li>
+                <li>Tratamento de falhas e retry automático</li>
+                <li>Logs completos de auditoria</li>
+            </ul>
+        </div>
+
+        <div class="bento-item bento-medium fade-up">
+            <div class="bento-icon">📱</div>
+            <h3 class="bento-title">Aplicativos Mobile & Web</h3>
+            <p class="bento-description">
+                Aplicações responsivas e progressivas que funcionam perfeitamente em qualquer 
+                dispositivo, desktop, tablet ou smartphone.
+            </p>
+            <ul class="bento-features">
+                <li>PWA com funcionalidade offline</li>
+                <li>Design moderno e intuitivo</li>
+                <li>Performance otimizada</li>
+            </ul>
+        </div>
+
+        <div class="bento-item bento-medium fade-up">
+            <div class="bento-icon">🌐</div>
+            <h3 class="bento-title">Sites Personalizados</h3>
+            <p class="bento-description">
+                Criamos sites personalizados, modernos e responsivos, desenvolvidos sob medida para a 
+                necessidade do seu negócio. Unimos design, performance e estratégia para transformar 
+                visitantes em clientes e fortalecer sua presença digital.
+            </p>
+            <ul class="bento-features">
+                <li>Design moderno e responsivo</li>
+                <li>Desenvolvimento sob medida para seu negócio</li>
+                <li>Performance otimizada e foco em conversão</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- COMO TRABALHAMOS -->
+<section class="process-section" id="processo">
+    <div class="section-header fade-up">
+        <span class="section-eyebrow">Como Trabalhamos</span>
+        <h2 class="section-title">PROCESSO TRANSPARENTE E ÁGIL</h2>
+        <p class="section-description">
+            Do primeiro contato até o deploy, você acompanha cada etapa do desenvolvimento.
+        </p>
+    </div>
+
+    <div class="process-timeline">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-item fade-up">
+            <div class="timeline-content">
+                <h3 class="timeline-step-title">Descoberta & Análise</h3>
+                <p class="timeline-step-description">
+                    Entendemos a fundo seu negócio, processos atuais, dores e objetivos. 
+                    Mapeamos requisitos técnicos e funcionais com sua equipe.
+                </p>
+            </div>
+            <div class="timeline-number">1</div>
+            <div></div>
+        </div>
+
+        <div class="timeline-item fade-up">
+            <div></div>
+            <div class="timeline-number">2</div>
+            <div class="timeline-content">
+                <h3 class="timeline-step-title">Arquitetura & Prototipagem</h3>
+                <p class="timeline-step-description">
+                    Desenhamos a solução técnica ideal: stack de tecnologia, banco de dados, 
+                    integrações e infraestrutura. Criamos protótipos navegáveis para validação.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item fade-up">
+            <div class="timeline-content">
+                <h3 class="timeline-step-title">Desenvolvimento Iterativo</h3>
+                <p class="timeline-step-description">
+                    Construímos o sistema em sprints ágeis com entregas incrementais. 
+                    Você acompanha o progresso e testa funcionalidades conforme são concluídas.
+                </p>
+            </div>
+            <div class="timeline-number">3</div>
+            <div></div>
+        </div>
+
+        <div class="timeline-item fade-up">
+            <div></div>
+            <div class="timeline-number">4</div>
+            <div class="timeline-content">
+                <h3 class="timeline-step-title">Deploy & Treinamento</h3>
+                <p class="timeline-step-description">
+                    Colocamos o sistema no ar com infraestrutura robusta e escalável. 
+                    Treinamos sua equipe e fornecemos documentação completa.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item fade-up">
+            <div class="timeline-content">
+                <h3 class="timeline-step-title">Suporte Contínuo</h3>
+                <p class="timeline-step-description">
+                    Monitoramento durante todo horário comercial, manutenção preventiva, atualizações e suporte técnico 
+                    para garantir operação sem interrupções.
+                </p>
+            </div>
+            <div class="timeline-number">5</div>
+            <div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SEGMENTOS QUE ATENDEMOS -->
+<section class="segments-section" id="segmentos">
+    <div class="segments-container">
+        
+        <div class="section-header fade-up">
+            <span class="section-eyebrow">CLIENTES EM POTENCIAL</span>
+            <h2 class="section-title">
+                SOLUÇÕES APLICADAS EM DIFERENTES ÁREAS
+            </h2>
+            <p class="section-description">
+                Cada empresa possui situações únicas. Nosso objetivo é entender a necessidade independente do segmento
+                e aplicar nosso conhecimento para criar ferramentas que <strong>facilite e reduza os prejuízos
+                drasticamente.</strong>
+            </p>
+        </div>
+        </div>
+
+        <div class="segments-grid">
+    <div class="segment-card card-w-2 fade-up">
+        <div class="segment-icon">📦</div>
+        <h4>Logística</h4>
+        <p>Sistemas de gestão de processos, roteirização dinâmica, telemetria de frotas e gestão de hubs de distribuição para operações de alta performance.</p>
+    </div>
+
+    <div class="segment-card fade-up">
+        <div class="segment-icon">⚕️</div>
+        <h4>Saúde</h4>
+        <p>Prontuários eletrônicos seguros (LGPD),agendas inteligentes, prontuários digitais e gestão automatizada de escalas médicas.</p>
+    </div>
+
+    <div class="segment-card fade-up">
+        <div class="segment-icon">🛍️</div>
+        <h4>Comércios</h4>
+        <p>Controle de estoque, automação de precificação e integração fluida com grandes ERPs.</p>
+    </div>
+
+    <div class="segment-card card-w-2 fade-up">
+        <div class="segment-icon">⚙️</div>
+        <h4>Manufatura & Indústria 4.0</h4>
+        <p>Digitalização do chão de fábrica, integração com sensores (IoT) e controle inteligente de toda a cadeia produtiva.</p>
+    </div>
+
+    <div class="segment-card fade-up">
+        <div class="segment-icon">💳</div>
+        <h4>Financeiro & Fintechs</h4>
+        <p>Dashboards de conciliação bancária, automação de cobranças recorrentes e análise de dados em tempo real.</p>
+    </div>
+
+    <div class="segment-card fade-up">
+        <div class="segment-icon">🌾</div>
+        <h4>Agronegócio</h4>
+        <p>Rastreabilidade de safras, gestão de maquinário no campo e plataformas de dados climáticos e produtivos.</p>
+    </div>
+
+    <div class="segment-card card-w-3 fade-up">
+        <div class="segment-icon">🏗️</div>
+        <h4>Engenharia & Facilities</h4>
+        <p>Plataformas para aprovação de projetos, medição de obras em tempo real e controle financeiro centralizado para grandes empreendimentos.</p>
+    </div>
+</div>
+
+        <div class="segments-footer fade-up">
+            <p>Caso sua ideia não esteja dentro desses exemplos, <a href="https://wa.me/5511947833759" target="_blank">clique aqui</a> e entre em contato conosco.
+                <br>Toda tarefa repetitiva e manual pode ser automatizada.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- PQ A COSQ -->
+<section class="why-cosq" id="porquecosq">
+    <div class="container">
+        <div class="why-grid">
+            
+            <div class="why-content fade-up">
+                <span class="section-eyebrow">POR QUE COSQ?</span>
+                <h2 class="section-title">Tecnologia com<br><span class="text-gradient">Visão de Dono.</span></h2>
+                <p class="section-description">
+                    Não somos apenas desenvolvedores, somos parceiros estratégicos. Acreditamos que o 
+                    software perfeito nasce do <strong>entendimento profundo do campo de batalha</strong> do 
+                    cliente.
+                </p>
+                
+                <div class="immersion-box">
+                    <h4>Consultoria de Imersão</h4>
+                    <p>Gostamos de visitar seu ambiente de trabalho para mapear gargalos que nem mesmo um relatório 
+                        consegue mostrar. Adequamos cada linha de código à sua realidade operacional.</p>
+                </div>
+            </div>
+
+            <div class="why-cards">
+                <div class="why-card-mini fade-up">
+                    <div class="mini-icon">🚀</div>
+                    <div>
+                        <h5>Suporte Exclusivo & Ágil</h5>
+                        <p>Atendimento humanizado e prioritário. Entendemos que seu negócio não pode parar.</p>
+                    </div>
+                </div>
+
+                <div class="why-card-mini fade-up">
+                    <div class="mini-icon">🎯</div>
+                    <div>
+                        <h5>Foco na Eficácia</h5>
+                        <p>Nos colocamos no seu lugar para entregar soluções que resolvem o problema de primeira.</p>
+                    </div>
+                </div>
+
+                <div class="why-card-mini fade-up">
+                    <div class="mini-icon">📱</div>
+                    <div>
+                        <h5>Adaptável a Mobile</h5>
+                        <p>Nossos projetos podem ser adaptáveis ao mobile caso seja necessário, não dependa 
+                            apenas do desktop para melhorar seu fluxo de trabalho.</p>
+                    </div>
+                </div>
+
+                <div class="why-card-mini fade-up">
+                    <div class="mini-icon">💎</div>
+                    <div>
+                        <h5>UI/UX de Alta Performance</h5>
+                        <p>Sistemas complexos com interfaces tão simples que dispensam manuais longos.</p>
+                    </div>
+                </div>
+
+                <div class="why-card-mini fade-up">
+                    <div class="mini-icon">🏗️</div>
+                    <div>
+                        <h5>Arquitetura Escalável</h5>
+                        <p>Softwares prontos para crescer de 10 para 10.000 usuários sem perder performance.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contato">
+    <div class="cta-content fade-up">
+        <h2 class="cta-title">Pronto para Transformar sua Empresa?</h2>
+        <p class="cta-description">
+            Deixe de depender de processos manuais. Vamos desenhar a solução perfeita para seu negócio.
+        </p>
+
+        <div class="cta-divider"><span>OU</span></div>
+
+        <div class="cta-buttons">
+            <a href="https://wa.me/5511947833759?text=Olá! Gostaria de conversar sobre uma solução customizada." target="_blank" class="btn btn-ghost">
+                💬 Conversar via WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="logo.png.png" alt="Logo COSQ" style="height:42px;width:auto;filter:brightness(0) invert(1);opacity:0.7;">
+            <p class="footer-tagline">COSQ — Software sob medida e automação de processos. Transformamos a complexidade do seu negócio em sistemas simples, robustos e inteligentes que crescem com você.</p>
+        </div>
+        <div class="footer-col">
+            <h5>Navegação</h5>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#solucoes">Soluções</a></li>
+                <li><a href="#processo">Processo</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Serviços</h5>
+            <ul>
+                <li><a href="#solucoes">Sistemas Customizados</a></li>
+                <li><a href="#solucoes">Automação de Processos</a></li>
+                <li><a href="#solucoes">Inteligência de Dados</a></li>
+                <li><a href="#contato">Consultoria Tech</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Contato</h5>
+            <ul>
+                <li><a href="https://wa.me/5511947833759" target="_blank">📱 (11) 94783-3759</a></li>
+                <li><a href="https://wa.me/5511947833759?text=Olá! Gostaria de conversar." target="_blank">💬 WhatsApp</a></li>
+                <li><a href="clav.html">Claviculário COSQ</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+        <span>&copy; 2026 COSQ — Todos os direitos reservados.</span>
+        <span>Tecnologia Personalizada para Empresas Extraordinárias.</span>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks   = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+    document.querySelectorAll('nav ul a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuToggle.textContent = '☰';
+        });
+    });
+
+    // Scroll-triggered fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    
+</script>
+
+</body>
+</html>
